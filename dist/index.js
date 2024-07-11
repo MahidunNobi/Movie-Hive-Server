@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 5000;
 dotenv_1.default.config();
@@ -41,6 +42,16 @@ app.get("/logout", (req, res) => {
         success: true
     });
 });
-app.listen(port, () => {
+const connect = async () => {
+    try {
+        await mongoose_1.default.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.cxk7yn6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`);
+        console.log("Connected with database successfully!");
+    }
+    catch (error) {
+        console.log(error);
+    }
+};
+app.listen(port, async () => {
+    await connect();
     console.log("Server started successfully.");
 });

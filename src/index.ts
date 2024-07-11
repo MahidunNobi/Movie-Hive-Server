@@ -2,6 +2,7 @@ import express, { CookieOptions } from "express";
 import cors from "cors";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 const app = express();
 const port = process.env.PORT || 5000;
 dotenv.config();
@@ -44,7 +45,17 @@ app.get("/logout", (req, res)=>{
     })
 })
 
+const connect = async() =>{
+  try {
+    await mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.cxk7yn6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
+    console.log("Connected with database successfully!")
+  } catch (error) {
+    console.log(error)
+  }
+}
 
-app.listen(port, () => {
+
+app.listen(port, async() => {
+  await connect()
   console.log("Server started successfully.");
 });
