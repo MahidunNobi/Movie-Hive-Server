@@ -45,6 +45,7 @@ app.get("/logout", (req, res)=>{
     })
 })
 
+// Connect function to DB
 const connect = async() =>{
   try {
     await mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.cxk7yn6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
@@ -53,7 +54,6 @@ const connect = async() =>{
     console.log(error)
   }
 }
-
 
 app.listen(port, async() => {
   await connect()
