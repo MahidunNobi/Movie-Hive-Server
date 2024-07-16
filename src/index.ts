@@ -3,6 +3,8 @@ import cors from "cors";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import userRouter from "./Routers/users";
+
 const app = express();
 const port = process.env.PORT || 5000;
 dotenv.config();
@@ -26,6 +28,9 @@ const cookieOption : CookieOptions = {
   sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
 };
 
+// Routes
+app.use("/users", userRouter)
+
 // Authentication JWT and LOGOUT
 app.post("/jwt", async (req, res) => {
   const user = req.body;
@@ -43,12 +48,13 @@ app.get("/logout", (req, res)=>{
     .send({
         success: true
     })
-})
+}) 
+
 
 // Connect function to DB
 const connect = async() =>{
   try {
-    await mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.cxk7yn6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
+    await mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.cxk7yn6.mongodb.net/Movie-Hive?retryWrites=true&w=majority&appName=Cluster0`)
     console.log("Connected with database successfully!")
   } catch (error) {
     console.log(error)

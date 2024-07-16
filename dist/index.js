@@ -8,6 +8,7 @@ const cors_1 = __importDefault(require("cors"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const users_1 = __importDefault(require("./Routers/users"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 5000;
 dotenv_1.default.config();
@@ -25,6 +26,8 @@ const cookieOption = {
     secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
 };
+// Routes
+app.use("/users", users_1.default);
 // Authentication JWT and LOGOUT
 app.post("/jwt", async (req, res) => {
     const user = req.body;
@@ -45,7 +48,7 @@ app.get("/logout", (req, res) => {
 // Connect function to DB
 const connect = async () => {
     try {
-        await mongoose_1.default.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.cxk7yn6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`);
+        await mongoose_1.default.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.cxk7yn6.mongodb.net/Movie-Hive?retryWrites=true&w=majority&appName=Cluster0`);
         console.log("Connected with database successfully!");
     }
     catch (error) {
