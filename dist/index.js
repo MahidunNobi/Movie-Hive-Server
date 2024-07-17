@@ -6,9 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const users_1 = __importDefault(require("./Routers/users"));
+const movies_1 = __importDefault(require("./Routers/movies"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 5000;
 dotenv_1.default.config();
@@ -18,6 +20,7 @@ app.use((0, cors_1.default)({
     origin: ["http://localhost:5173"],
     credentials: true,
 }));
+app.use((0, cookie_parser_1.default)());
 app.get("/", (req, res) => {
     res.send("Movie hive server is running here...");
 });
@@ -28,10 +31,11 @@ const cookieOption = {
 };
 // Routes
 app.use("/users", users_1.default);
+app.use("/movies", movies_1.default);
 // Authentication JWT and LOGOUT
 app.post("/jwt", async (req, res) => {
     const user = req.body;
-    const token = jsonwebtoken_1.default.sign(user, "sdf4#4fdsa%$@*+65*213*5&948&", {
+    const token = jsonwebtoken_1.default.sign(user, process.env.JWT_SECRET, {
         expiresIn: "1hr",
     });
     res

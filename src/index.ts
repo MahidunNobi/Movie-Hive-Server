@@ -1,9 +1,12 @@
 import express, { CookieOptions } from "express";
 import cors from "cors";
 import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser"
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRouter from "./Routers/users";
+import movieRouter from "./Routers/movies";
+
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -17,6 +20,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(cookieParser())
 
 app.get("/", (req, res) => {
   res.send("Movie hive server is running here...");
@@ -30,11 +34,12 @@ const cookieOption : CookieOptions = {
 
 // Routes
 app.use("/users", userRouter)
+app.use("/movies", movieRouter)
 
 // Authentication JWT and LOGOUT
 app.post("/jwt", async (req, res) => {
   const user = req.body;
-  const token = jwt.sign(user, "sdf4#4fdsa%$@*+65*213*5&948&", {
+  const token = jwt.sign(user, process.env.JWT_SECRET as string, {
     expiresIn: "1hr",
   });
   res
