@@ -1,11 +1,7 @@
 import { Document, Schema, model } from "mongoose";
+import { IGerners } from "../@types/GenersType";
 
-interface gernersType extends Document {
-  value: string;
-  label: string;
-}
-
-const generSchema: Schema<gernersType> = new Schema({
+const generSchema: Schema<IGerners> = new Schema({
   value: String,
   label: String,
 });

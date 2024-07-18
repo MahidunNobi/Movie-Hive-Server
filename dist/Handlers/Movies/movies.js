@@ -6,11 +6,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.postMovie = void 0;
 const UserModel_1 = __importDefault(require("../../Models/UserModel"));
 const MovieModel_1 = __importDefault(require("../../Models/MovieModel"));
+const mongodb_1 = require("mongodb");
 const postMovie = async (req, res) => {
     const reqBody = req.body;
     const user = req.user;
     const loggedInUser = await UserModel_1.default.findOne({ email: user?.email });
-    const movie = new MovieModel_1.default({ ...reqBody, user: loggedInUser?._id });
+    const genersId = reqBody.movie_geners.map((gener) => new mongodb_1.ObjectId(gener._id));
+    const movie = new MovieModel_1.default({
+        ...reqBody,
+        movie_geners: genersId,
+        user: loggedInUser?._id,
+    });
     await movie.save();
     return res.send({ message: "Movie added successfully", success: true });
 };

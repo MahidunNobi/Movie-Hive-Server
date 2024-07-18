@@ -28,7 +28,7 @@ const movieSchema = new mongoose_1.Schema({
     movie_name: String,
     published_year: Number,
     story: String,
-    movie_geners: [String],
+    movie_geners: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "Geners" }],
     movie_ratting: Number,
     user: { type: mongoose_1.Schema.Types.ObjectId, ref: "User" },
 });
