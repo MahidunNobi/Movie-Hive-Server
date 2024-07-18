@@ -11,6 +11,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const users_1 = __importDefault(require("./Routers/users"));
 const movies_1 = __importDefault(require("./Routers/movies"));
+const geners_1 = __importDefault(require("./Routers/geners"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 5000;
 dotenv_1.default.config();
@@ -32,21 +33,18 @@ const cookieOption = {
 // Routes
 app.use("/users", users_1.default);
 app.use("/movies", movies_1.default);
+app.use("/geners", geners_1.default);
 // Authentication JWT and LOGOUT
 app.post("/jwt", async (req, res) => {
     const user = req.body;
     const token = jsonwebtoken_1.default.sign(user, process.env.JWT_SECRET, {
         expiresIn: "1hr",
     });
-    res
-        .cookie("movie_token", token, cookieOption)
-        .send({ success: true });
+    res.cookie("movie_token", token, cookieOption).send({ success: true });
 });
 app.get("/logout", (req, res) => {
-    res
-        .clearCookie("movie_token", { ...cookieOption, maxAge: 0 })
-        .send({
-        success: true
+    res.clearCookie("movie_token", { ...cookieOption, maxAge: 0 }).send({
+        success: true,
     });
 });
 // Connect function to DB
