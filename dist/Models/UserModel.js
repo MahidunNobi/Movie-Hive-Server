@@ -30,5 +30,5 @@ const userSchema = new mongoose_1.Schema({
     photoURL: String,
     role: String,
 });
-const User = mongoose_1.default.model("users", userSchema);
+const User = mongoose_1.default.model("Users", userSchema);
 exports.default = User;

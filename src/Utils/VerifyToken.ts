@@ -13,12 +13,13 @@ export const verifyToken = (
     token,
     process.env.JWT_SECRET as string,
     (err: VerifyErrors | null, decode: Object | undefined) => {
-      if (err) {
+      if (err || decode === undefined) {
         console.log(err);
         return res.status(403).send({ message: "Token verify failled" });
       }
-      req.user = decode;
+      const decodedData = decode as { email: string };
+      req.user = decodedData;
+      next();
     }
   );
-  next();
 };

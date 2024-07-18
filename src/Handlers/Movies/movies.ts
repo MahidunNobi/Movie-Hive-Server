@@ -1,10 +1,16 @@
-import { Request, Response } from "express"
+import { Request, Response } from "express";
+import User from "../../Models/UserModel";
+import Movie from "../../Models/MovieModel";
 
+export const postMovie = async (req: Request, res: Response) => {
+  const reqBody = req.body;
+  const user = req.user;
 
-export const postMovie = async(req:Request, res:Response)=>{
-    const movie = req.body
-    const cookie = req.cookies
-    console.log(cookie)
+  const loggedInUser = await User.findOne({ email: user?.email });
 
-    return res.send({message: "Movie added successfully", success: true})
-}
+  const movie = new Movie({ ...reqBody, user: loggedInUser?._id });
+
+  await movie.save();
+
+  return res.send({ message: "Movie added successfully", success: true });
+};

@@ -29,7 +29,8 @@ const movieSchema = new mongoose_1.Schema({
     published_year: Number,
     story: String,
     movie_geners: [String],
-    movie_ratting: Number
+    movie_ratting: Number,
+    user: { type: mongoose_1.Schema.Types.ObjectId, ref: "User" },
 });
-const Movie = mongoose_1.default.model("movie", movieSchema);
+const Movie = mongoose_1.default.model("Movie", movieSchema);
 exports.default = Movie;

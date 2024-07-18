@@ -10,12 +10,13 @@ const verifyToken = (req, res, next) => {
     if (!token)
         return res.status(401).send({ message: "Unauthenticated!" });
     jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET, (err, decode) => {
-        if (err) {
+        if (err || decode === undefined) {
             console.log(err);
             return res.status(403).send({ message: "Token verify failled" });
         }
-        req.user = decode;
+        const decodedData = decode;
+        req.user = decodedData;
+        next();
     });
-    next();
 };
 exports.verifyToken = verifyToken;
