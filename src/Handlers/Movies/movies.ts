@@ -8,7 +8,6 @@ export const postMovie = async (req: Request, res: Response) => {
   const user = req.user;
 
   const loggedInUser = await User.findOne({ email: user?.email });
-
   const genersId = reqBody.movie_geners.map(
     (gener: { _id: string }) => new ObjectId(gener._id)
   );
@@ -19,6 +18,5 @@ export const postMovie = async (req: Request, res: Response) => {
     user: loggedInUser?._id,
   });
   await movie.save();
-
   return res.send({ message: "Movie added successfully", success: true });
 };
