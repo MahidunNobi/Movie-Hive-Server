@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import User from "../../Models/UserModel";
 import Movie from "../../Models/MovieModel";
 import { ObjectId } from "mongodb";
+import { IUser } from "../../@types/UserType";
 
 export const postMovie = async (req: Request, res: Response) => {
   const reqBody = req.body;
@@ -19,4 +20,12 @@ export const postMovie = async (req: Request, res: Response) => {
   });
   await movie.save();
   return res.send({ message: "Movie added successfully", success: true });
+};
+
+export const getUserMovie = async (req: Request, res: Response) => {
+  const userObj = req.user;
+  const user = await User.findOne({ email: userObj?.email });
+  const movies = await Movie.find({ user: user?._id }).populate("movie_geners");
+
+  res.send({ Message: "Successfull", data: movies });
 };

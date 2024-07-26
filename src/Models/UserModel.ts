@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
+import { IUser } from "../@types/UserType";
 
-const userSchema = new Schema({
+const userSchema: Schema<IUser> = new Schema({
   email: String,
   displayName: String,
   photoURL: String,

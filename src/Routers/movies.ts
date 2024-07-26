@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { postMovie } from "../Handlers/Movies/movies";
+import { getUserMovie, postMovie } from "../Handlers/Movies/movies";
 import { verifyToken } from "../Utils/VerifyToken";
 
-const movieRouter = Router()
+const movieRouter = Router();
 
-movieRouter.post("/", verifyToken, postMovie)
+movieRouter.post("/", verifyToken, postMovie);
+movieRouter.get("/user", verifyToken, getUserMovie);
 
-export default movieRouter
+export default movieRouter;
