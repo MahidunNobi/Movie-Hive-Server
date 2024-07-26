@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 
 export interface IMovie extends Document {
-  _id?: string;
+  _id?: Types.ObjectId | string;
   movie_name: string;
   published_year: number;
   story: string;

@@ -6,4 +6,5 @@ const VerifyToken_1 = require("../Utils/VerifyToken");
 const movieRouter = (0, express_1.Router)();
 movieRouter.post("/", VerifyToken_1.verifyToken, movies_1.postMovie);
 movieRouter.get("/user", VerifyToken_1.verifyToken, movies_1.getUserMovie);
+movieRouter.get("/:id", VerifyToken_1.verifyToken, movies_1.getMovie);
 exports.default = movieRouter;

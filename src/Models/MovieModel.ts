@@ -7,7 +7,7 @@ const movieSchema: Schema<IMovie> = new Schema({
   story: String,
   movie_geners: [{ type: Schema.Types.ObjectId, ref: "Geners" }],
   movie_ratting: Number,
-  user: { type: Schema.Types.ObjectId, ref: "User" },
+  user: { type: Schema.Types.ObjectId, ref: "Users" },
   movie_poster_url: String,
 });
 

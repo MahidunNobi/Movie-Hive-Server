@@ -30,7 +30,7 @@ const movieSchema = new mongoose_1.Schema({
     story: String,
     movie_geners: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "Geners" }],
     movie_ratting: Number,
-    user: { type: mongoose_1.Schema.Types.ObjectId, ref: "User" },
+    user: { type: mongoose_1.Schema.Types.ObjectId, ref: "Users" },
     movie_poster_url: String,
 });
 const Movie = mongoose_1.default.model("Movie", movieSchema);
