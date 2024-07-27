@@ -8,7 +8,6 @@ export const verifyToken = (
 ) => {
   const token = req.cookies.movie_token;
   if (!token) return res.status(401).send({ message: "Unauthenticated!" });
-
   Jwt.verify(
     token,
     process.env.JWT_SECRET as string,
