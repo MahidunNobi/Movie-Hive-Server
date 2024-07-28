@@ -4,6 +4,16 @@ import Movie from "../../Models/MovieModel";
 import { ObjectId } from "mongodb";
 import { IUser } from "../../@types/UserType";
 
+export const getAllMovies = async (req: Request, res: Response) => {
+  try {
+    const movies = await Movie.find().populate("movie_geners").populate("user");
+    return res.send(movies);
+  } catch (error) {
+    console.log(error);
+    res.send({ message: "There was an error", error });
+  }
+};
+
 export const postMovie = async (req: Request, res: Response) => {
   const reqBody = req.body;
   const user = req.user;

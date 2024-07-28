@@ -4,6 +4,7 @@ const express_1 = require("express");
 const movies_1 = require("../Handlers/Movies/movies");
 const VerifyToken_1 = require("../Utils/VerifyToken");
 const movieRouter = (0, express_1.Router)();
+movieRouter.get("/", movies_1.getAllMovies);
 movieRouter.post("/", VerifyToken_1.verifyToken, movies_1.postMovie);
 movieRouter.patch("/:id", VerifyToken_1.verifyToken, movies_1.updateMovie);
 movieRouter.delete("/:id", VerifyToken_1.verifyToken, movies_1.deleteMovie);

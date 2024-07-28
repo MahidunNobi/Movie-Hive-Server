@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   deleteMovie,
+  getAllMovies,
   getMovie,
   getUserMovie,
   postMovie,
@@ -10,6 +11,7 @@ import { verifyToken } from "../Utils/VerifyToken";
 
 const movieRouter = Router();
 
+movieRouter.get("/", getAllMovies);
 movieRouter.post("/", verifyToken, postMovie);
 movieRouter.patch("/:id", verifyToken, updateMovie);
 movieRouter.delete("/:id", verifyToken, deleteMovie);
