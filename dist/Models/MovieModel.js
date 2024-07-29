@@ -32,6 +32,7 @@ const movieSchema = new mongoose_1.Schema({
     movie_ratting: Number,
     user: { type: mongoose_1.Schema.Types.ObjectId, ref: "Users" },
     movie_poster_url: String,
+    featured: Boolean,
 });
 const Movie = mongoose_1.default.model("Movie", movieSchema);
 exports.default = Movie;

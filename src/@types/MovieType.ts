@@ -9,4 +9,5 @@ export interface IMovie extends Document {
   movie_ratting: number;
   user?: string;
   movie_poster_url?: string;
+  featured?: boolean;
 }

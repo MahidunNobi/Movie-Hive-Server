@@ -9,6 +9,7 @@ const movieSchema: Schema<IMovie> = new Schema({
   movie_ratting: Number,
   user: { type: Schema.Types.ObjectId, ref: "Users" },
   movie_poster_url: String,
+  featured: Boolean,
 });
 
 const Movie = mongoose.model("Movie", movieSchema);
