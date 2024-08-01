@@ -37,6 +37,19 @@ export const getNotFeaturedMovies = async (req: Request, res: Response) => {
     res.send({ message: "There was an error", error });
   }
 };
+export const makedMovieNotFeatured = async (req: Request, res: Response) => {
+  const params = req.params;
+  const { id } = params;
+  try {
+    const movie = await Movie.findByIdAndUpdate(new ObjectId(id), {
+      featured: false,
+    });
+    return res.send(movie);
+  } catch (error) {
+    console.log(error);
+    res.send({ message: "There was an error", error });
+  }
+};
 
 export const postMovie = async (req: Request, res: Response) => {
   const reqBody = req.body;

@@ -6,10 +6,12 @@ import {
   getMovie,
   getNotFeaturedMovies,
   getUserMovie,
+  makedMovieNotFeatured,
   postMovie,
   updateMovie,
 } from "../Handlers/Movies/movies";
 import { verifyToken } from "../Utils/VerifyToken";
+import { verifyAdmin } from "../Utils/VerifyAdmin";
 
 const movieRouter = Router();
 
