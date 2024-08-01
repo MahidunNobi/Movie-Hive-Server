@@ -1,18 +1,16 @@
 import { Router } from "express";
-import {
-  deleteMovie,
-  getAllMovies,
-  getFeaturedMovies,
-  getMovie,
-  getNotFeaturedMovies,
-  getUserMovie,
-  makedMovieFeatured,
-  makedMovieNotFeatured,
-  postMovie,
-  updateMovie,
-} from "../Handlers/Movies/movies";
 import { verifyToken } from "../Utils/VerifyToken";
 import { verifyAdmin } from "../Utils/VerifyAdmin";
+import { getAllMovies } from "../Handlers/Movies/GetAllMovies/getAllMovies";
+import { getFeaturedMovies } from "../Handlers/Movies/GetFeaturedMovies/getFeaturedMovies";
+import { getNotFeaturedMovies } from "../Handlers/Movies/GetNotFeauredMovies/getNotFeaturedMovies";
+import { postMovie } from "../Handlers/Movies/PostMovie/postMovie";
+import { updateMovie } from "../Handlers/Movies/UpdateMovie/updateMovie";
+import { deleteMovie } from "../Handlers/Movies/DeleteMovie/deleteMovie";
+import { getUserMovie } from "../Handlers/Movies/GetUserMovie/getUserMovie";
+import { getMovie } from "../Handlers/Movies/GetMovie/getMovie";
+import { makedMovieFeatured } from "../Handlers/Movies/MakedMovieFeatured/makedMovieFeatured";
+import { makedMovieNotFeatured } from "../Handlers/Movies/MakedMovieNotFeatured/makeMovieNotFeatured";
 
 const movieRouter = Router();
 
