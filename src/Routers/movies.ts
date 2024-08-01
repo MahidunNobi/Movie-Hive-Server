@@ -24,4 +24,12 @@ movieRouter.delete("/:id", verifyToken, deleteMovie);
 movieRouter.get("/user", verifyToken, getUserMovie);
 movieRouter.get("/:id", verifyToken, getMovie);
 
+// Admin Routes
+movieRouter.post(
+  "/not-featured/:id",
+  verifyToken,
+  verifyAdmin,
+  makedMovieNotFeatured
+);
+
 export default movieRouter;
