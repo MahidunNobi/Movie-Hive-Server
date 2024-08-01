@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteMovie = exports.updateMovie = exports.getMovie = exports.getUserMovie = exports.postMovie = exports.makedMovieNotFeatured = exports.getNotFeaturedMovies = exports.getFeaturedMovies = exports.getAllMovies = void 0;
+exports.deleteMovie = exports.updateMovie = exports.getMovie = exports.getUserMovie = exports.postMovie = exports.makedMovieNotFeatured = exports.getNotFeaturedMovies = exports.makedMovieFeatured = exports.getFeaturedMovies = exports.getAllMovies = void 0;
 const UserModel_1 = __importDefault(require("../../Models/UserModel"));
 const MovieModel_1 = __importDefault(require("../../Models/MovieModel"));
 const mongodb_1 = require("mongodb");
@@ -31,6 +31,24 @@ const getFeaturedMovies = async (req, res) => {
     }
 };
 exports.getFeaturedMovies = getFeaturedMovies;
+const makedMovieFeatured = async (req, res) => {
+    const params = req.params;
+    const { id } = params;
+    try {
+        const movie = await MovieModel_1.default.findByIdAndUpdate(new mongodb_1.ObjectId(id), {
+            featured: true,
+        });
+        return res.send({
+            message: "Made movie featured successfully!",
+            success: true,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.send({ message: "There was an error", error });
+    }
+};
+exports.makedMovieFeatured = makedMovieFeatured;
 const getNotFeaturedMovies = async (req, res) => {
     try {
         const movies = await MovieModel_1.default.find({
@@ -53,7 +71,10 @@ const makedMovieNotFeatured = async (req, res) => {
         const movie = await MovieModel_1.default.findByIdAndUpdate(new mongodb_1.ObjectId(id), {
             featured: false,
         });
-        return res.send(movie);
+        return res.send({
+            message: "Removed movie from featured list",
+            success: true,
+        });
     }
     catch (error) {
         console.log(error);

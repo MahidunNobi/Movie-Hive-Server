@@ -24,6 +24,22 @@ export const getFeaturedMovies = async (req: Request, res: Response) => {
     res.send({ message: "There was an error", error });
   }
 };
+export const makedMovieFeatured = async (req: Request, res: Response) => {
+  const params = req.params;
+  const { id } = params;
+  try {
+    const movie = await Movie.findByIdAndUpdate(new ObjectId(id), {
+      featured: true,
+    });
+    return res.send({
+      message: "Made movie featured successfully!",
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({ message: "There was an error", error });
+  }
+};
 export const getNotFeaturedMovies = async (req: Request, res: Response) => {
   try {
     const movies = await Movie.find({
@@ -44,7 +60,10 @@ export const makedMovieNotFeatured = async (req: Request, res: Response) => {
     const movie = await Movie.findByIdAndUpdate(new ObjectId(id), {
       featured: false,
     });
-    return res.send(movie);
+    return res.send({
+      message: "Removed movie from featured list",
+      success: true,
+    });
   } catch (error) {
     console.log(error);
     res.send({ message: "There was an error", error });

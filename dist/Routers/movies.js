@@ -14,5 +14,6 @@ movieRouter.delete("/:id", VerifyToken_1.verifyToken, movies_1.deleteMovie);
 movieRouter.get("/user", VerifyToken_1.verifyToken, movies_1.getUserMovie);
 movieRouter.get("/:id", VerifyToken_1.verifyToken, movies_1.getMovie);
 // Admin Routes
+movieRouter.post("/featured/:id", VerifyToken_1.verifyToken, VerifyAdmin_1.verifyAdmin, movies_1.makedMovieFeatured);
 movieRouter.post("/not-featured/:id", VerifyToken_1.verifyToken, VerifyAdmin_1.verifyAdmin, movies_1.makedMovieNotFeatured);
 exports.default = movieRouter;

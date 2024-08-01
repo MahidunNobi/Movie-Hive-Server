@@ -6,6 +6,7 @@ import {
   getMovie,
   getNotFeaturedMovies,
   getUserMovie,
+  makedMovieFeatured,
   makedMovieNotFeatured,
   postMovie,
   updateMovie,
@@ -25,6 +26,7 @@ movieRouter.get("/user", verifyToken, getUserMovie);
 movieRouter.get("/:id", verifyToken, getMovie);
 
 // Admin Routes
+movieRouter.post("/featured/:id", verifyToken, verifyAdmin, makedMovieFeatured);
 movieRouter.post(
   "/not-featured/:id",
   verifyToken,
