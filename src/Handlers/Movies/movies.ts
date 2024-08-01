@@ -24,6 +24,19 @@ export const getFeaturedMovies = async (req: Request, res: Response) => {
     res.send({ message: "There was an error", error });
   }
 };
+export const getNotFeaturedMovies = async (req: Request, res: Response) => {
+  try {
+    const movies = await Movie.find({
+      $or: [{ featured: { $exists: false } }, { featured: false }],
+    })
+      .populate("movie_geners")
+      .populate("user");
+    return res.send(movies);
+  } catch (error) {
+    console.log(error);
+    res.send({ message: "There was an error", error });
+  }
+};
 
 export const postMovie = async (req: Request, res: Response) => {
   const reqBody = req.body;

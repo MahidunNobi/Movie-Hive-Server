@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteMovie = exports.updateMovie = exports.getMovie = exports.getUserMovie = exports.postMovie = exports.getFeaturedMovies = exports.getAllMovies = void 0;
+exports.deleteMovie = exports.updateMovie = exports.getMovie = exports.getUserMovie = exports.postMovie = exports.getNotFeaturedMovies = exports.getFeaturedMovies = exports.getAllMovies = void 0;
 const UserModel_1 = __importDefault(require("../../Models/UserModel"));
 const MovieModel_1 = __importDefault(require("../../Models/MovieModel"));
 const mongodb_1 = require("mongodb");
@@ -31,6 +31,21 @@ const getFeaturedMovies = async (req, res) => {
     }
 };
 exports.getFeaturedMovies = getFeaturedMovies;
+const getNotFeaturedMovies = async (req, res) => {
+    try {
+        const movies = await MovieModel_1.default.find({
+            $or: [{ featured: { $exists: false } }, { featured: false }],
+        })
+            .populate("movie_geners")
+            .populate("user");
+        return res.send(movies);
+    }
+    catch (error) {
+        console.log(error);
+        res.send({ message: "There was an error", error });
+    }
+};
+exports.getNotFeaturedMovies = getNotFeaturedMovies;
 const postMovie = async (req, res) => {
     const reqBody = req.body;
     const user = req.user;

@@ -4,6 +4,7 @@ import {
   getAllMovies,
   getFeaturedMovies,
   getMovie,
+  getNotFeaturedMovies,
   getUserMovie,
   postMovie,
   updateMovie,
@@ -14,6 +15,7 @@ const movieRouter = Router();
 
 movieRouter.get("/", getAllMovies);
 movieRouter.get("/featured", getFeaturedMovies);
+movieRouter.get("/not-featured", getNotFeaturedMovies);
 movieRouter.post("/", verifyToken, postMovie);
 movieRouter.patch("/:id", verifyToken, updateMovie);
 movieRouter.delete("/:id", verifyToken, deleteMovie);
