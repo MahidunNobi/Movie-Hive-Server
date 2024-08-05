@@ -6,8 +6,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllMovies = void 0;
 const MovieModel_1 = __importDefault(require("../../../Models/MovieModel"));
 const getAllMovies = async (req, res) => {
+    const query = req.query;
     try {
-        const movies = await MovieModel_1.default.find().populate("movie_geners").populate("user");
+        // Setting the filter first
+        let filter;
+        if (query?.movie_name) {
+            filter = {
+                movie_name: { $regex: query.movie_name, $options: "i" },
+            };
+        }
+        // Getting the data according to the filter
+        const movies = await MovieModel_1.default.find(filter ? filter : {})
+            .populate("movie_geners")
+            .populate("user");
         return res.send(movies);
     }
     catch (error) {
